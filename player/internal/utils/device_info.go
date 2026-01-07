@@ -9,8 +9,9 @@ var Device *DeviceInfo
 
 // DeviceInfo 设备信息
 type DeviceInfo struct {
-	Address string // 对应 ip 地址
-	Mac     string // 对应 mac 地址
+	Address   string // 对应 ip 地址
+	Mac       string // 对应 mac 地址
+	RemoteURL string // 后端地址
 }
 
 // GetDeviceMac 获取设备mac地址
