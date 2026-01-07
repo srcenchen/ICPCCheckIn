@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	_ = logger.Init() // 初始化zap
+	_ = logger.Init() // 初始化 zap
 	utils.Device = &utils.DeviceInfo{}
 	err := utils.Device.GetDeviceMac()
 	if err != nil {
@@ -19,5 +19,4 @@ func init() {
 
 func main() {
 	server.NewHTTPServer()
-	select {}
 }

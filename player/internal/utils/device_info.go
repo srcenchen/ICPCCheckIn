@@ -9,14 +9,14 @@ var Device *DeviceInfo
 
 // DeviceInfo 设备信息
 type DeviceInfo struct {
-	Address string // 对应ip地址
-	Mac     string // 对应mac地址
+	Address string // 对应 ip 地址
+	Mac     string // 对应 mac 地址
 }
 
 // GetDeviceMac 获取设备mac地址
 // @return 		err		error  		错误信息
 func (d *DeviceInfo) GetDeviceMac() (err error) {
-	// 获取出口ip
+	// 获取出口 ip
 	err = d.getOutboundIp()
 	if err != nil {
 		return
