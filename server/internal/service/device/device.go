@@ -1,12 +1,14 @@
 package device
 
 import (
+	"errors"
 	"net/http"
 	"server/internal/data"
 	"server/internal/data/model"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type RegisterReq struct {
@@ -40,11 +42,13 @@ func GetAllDevices(c *gin.Context) {
 
 // GetDeviceByMac 根据 mac 获取设备
 func GetDeviceByMac(c *gin.Context) {
-	device := &model.Device{
-		Id: -1,
-	}
+	device := &model.Device{}
 	mac := c.Query("mac")
-	data.DB().Where("mac = ?", mac).First(&device)
+	err := data.DB().Where("mac = ?", mac).First(&device).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		c.JSON(http.StatusOK, model.Device{Id: -1})
+		return
+	}
 	c.JSON(http.StatusOK, device)
 }
 
