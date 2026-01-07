@@ -17,5 +17,6 @@ func NewHTTPServer() {
 	device.GET("/device-by-mac", d1.GetDeviceByMac) // 根据 mac 获取设备信息
 	device.POST("/check-in", d1.CheckIn)            // 签到
 	device.POST("/check-out", d1.CheckOut)          // 签退
+	device.POST("/delete", d1.Delete)               // 删除
 	srv.Run(":8081")
 }

@@ -5,7 +5,7 @@ import (
 )
 
 type Device struct {
-	Id       uint      `gorm:"primary_key;auto_increment"`
+	Id       int       `gorm:"primary_key;auto_increment"`
 	Status   uint8     `gorm:"type:tinyint(4);not null;comment:状态信息 0 为未签到 1为已经签到 2为已经签退"`
 	Ip       string    `gorm:"comment:ip地址"`
 	Mac      string    `gorm:"comment:mac地址"`

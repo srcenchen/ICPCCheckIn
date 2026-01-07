@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"server/internal/data"
 	"server/internal/data/model"
-	"server/internal/utils/logger"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -41,9 +40,10 @@ func GetAllDevices(c *gin.Context) {
 
 // GetDeviceByMac 根据 mac 获取设备
 func GetDeviceByMac(c *gin.Context) {
-	var device model.Device
+	device := &model.Device{
+		Id: -1,
+	}
 	mac := c.Query("mac")
-	logger.Sugar().Debug(mac)
 	data.DB().Where("mac = ?", mac).First(&device)
 	c.JSON(http.StatusOK, device)
 }
@@ -87,5 +87,23 @@ func CheckOut(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"code":    0, // 0 代表成功 1代表失败
 		"message": "签退成功",
+	})
+}
+
+// Delete 删除接口
+func Delete(c *gin.Context) {
+	if c.Query("type") != "" {
+		// 全部删除
+		data.DB().Delete(&model.Device{})
+		c.JSON(200, gin.H{
+			"code":    0, // 0 代表成功 1代表失败
+			"message": "删除成功",
+		})
+		return
+	}
+	data.DB().Where("mac = ?", c.Query("mac")).Delete(&model.Device{})
+	c.JSON(200, gin.H{
+		"code":    0, // 0 代表成功 1代表失败
+		"message": "删除成功",
 	})
 }
