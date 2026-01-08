@@ -17,11 +17,15 @@ export default defineConfig({
   },
   server: {
     port: 3001,
-    proxy:{
-      '/api':{
+    proxy: {
+      '/api': {
         target: 'http://127.0.0.1:8081',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/resource': {
+        target: 'http://127.0.0.1:8081',
+        changeOrigin: true
       }
     }
   }

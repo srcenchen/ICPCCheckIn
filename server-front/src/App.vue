@@ -93,7 +93,7 @@ const deleteAllDevices = async () => {
 
 const exportData = async () => {
   const res = await Requset.getExportUrl();
-  window.open(res.url);
+  window.open(res.path);
 }
 
 onMounted(() => {
