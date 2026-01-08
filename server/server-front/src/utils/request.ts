@@ -6,7 +6,7 @@ interface Response {
 }
 
 class Requset {
-    private static baseUrl: string = "http://localhost:3001/api";
+    private static baseUrl: string = "";
 
     static async getAllDevices(): Promise<Response> {
         const res = await axios.get(`${this.baseUrl}/v1/device/all-devices`);

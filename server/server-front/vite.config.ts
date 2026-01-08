@@ -18,10 +18,10 @@ export default defineConfig({
   server: {
     port: 3001,
     proxy: {
-      '/api': {
+      '/v1': {
         target: 'http://127.0.0.1:8081',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        //rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/resource': {
         target: 'http://127.0.0.1:8081',

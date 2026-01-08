@@ -9,7 +9,7 @@ import (
 func init() {
 	_ = logger.Init() // 初始化 zap
 	utils.Device = &utils.DeviceInfo{
-		RemoteURL: "http://127.0.0.1:8081",
+		RemoteURL: "http://icpc-checkin.zhiyuansofts.cn",
 	}
 	err := utils.Device.GetDeviceMac()
 	if err != nil {
