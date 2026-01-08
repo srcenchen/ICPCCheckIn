@@ -98,7 +98,7 @@ func CheckOut(c *gin.Context) {
 func Delete(c *gin.Context) {
 	if c.Query("type") != "" {
 		// 全部删除
-		data.DB().Delete(&model.Device{})
+		data.DB().Unscoped().Where("1=1").Delete(&model.Device{})
 		c.JSON(200, gin.H{
 			"code":    0, // 0 代表成功 1代表失败
 			"message": "删除成功",
