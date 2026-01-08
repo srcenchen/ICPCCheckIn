@@ -14,16 +14,12 @@ class Requset {
     }
 
     static async deleteDeviceByMac(mac: string) {
-        const res = await axios.post(`${this.baseUrl}/v1/device/delete`, {
-            mac
-        });
+        const res = await axios.post(`${this.baseUrl}/v1/device/delete?mac=` + mac);
         return res.data;
     }
 
     static async deleteAllDevices() {
-        const res = await axios.post(`${this.baseUrl}/v1/device/delete`, {
-            type: "all"
-        });
+        const res = await axios.post(`${this.baseUrl}/v1/device/delete?type=all`);
         return res.data;
     }
 
