@@ -72,7 +72,7 @@ const checkStatus = async () => {
         break
       };
       case 2: mode.value = 'checkover'; break;
-      default: mode.value = 'error'; break;
+      default: throw new Error('未知状态'); break;
     }
   } catch (error) {
     console.error('获取状态失败:', error);
@@ -88,9 +88,13 @@ const handleCheckIn = async () => {
 
   try {
     if (confirm(`请确认您输入的信息无误：\n姓名:${stuName.value}\n学号:${stuNum.value}`)) {
-      await Requset.cin(stuName.value, parseInt(stuNum.value));
-      mode.value = 'checkout';
-      alert('签到成功！');
+      const res = await Requset.cin(stuName.value, parseInt(stuNum.value));
+      if (res.code === 0) {
+        mode.value = 'checkout';
+        alert('签到成功！');
+      } else {
+        alert('签到失败，请重试');
+      }
     }
   } catch (error) {
     console.error('签到失败:', error);
@@ -101,11 +105,16 @@ const handleCheckIn = async () => {
 const handleCheckOut = async () => {
   try {
     if (confirm("是否确认签退？")) {
-      await Requset.cout();
-      showWarning.value = true;
-      mode.value = 'checkover';
-      stuName.value = '';
-      stuNum.value = '';
+      const res = await Requset.cout();
+      if (res.code === 0) {
+        showWarning.value = true;
+        mode.value = 'checkover';
+        stuName.value = '';
+        stuNum.value = '';
+        alert('签退成功！');
+      } else {
+        alert('签退失败，请重试');
+      }
     }
   } catch (error) {
     console.error('签退失败:', error);
